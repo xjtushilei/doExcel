@@ -226,7 +226,7 @@ public class doExcel {
 		WritableSheet sheet18课 = wwb.createSheet("18课", 2);
 		WritableSheet sheet22课 = wwb.createSheet("22课", 3);
 		String[] 列标题 = { "业务员", "当月应收件数", "当月应收保费", "当月已收件数", "当月已收保费", "当月未收件数", "当月未收保费", "当月件数达成", "当月保费达成",
-				"宽末未收件数", "宽一未收件数", "总未收件数" };
+				"宽末未收件数", "宽一未收件数", "总未收件数", "距离 80% 目标件数" };
 		try {
 			sheet5课.mergeCells(0, 0, 11, 0);
 			sheet11课.mergeCells(0, 0, 11, 0);
@@ -311,6 +311,8 @@ public class doExcel {
 					sheet5课.addCell(new Number(9, count5, 宽末未收件数));
 					sheet5课.addCell(new Number(10, count5, 宽一未收件数));
 					sheet5课.addCell(new Number(11, count5, 总未收件数));
+					sheet5课.addCell(new Label(12, count5,  距离80的函数(当月应收件数,当月已收件数)));
+
 
 				} catch (RowsExceededException e) {
 					e.printStackTrace();
@@ -336,6 +338,8 @@ public class doExcel {
 					sheet11课.addCell(new Number(9, count11, 宽末未收件数));
 					sheet11课.addCell(new Number(10, count11, 宽一未收件数));
 					sheet11课.addCell(new Number(11, count11, 总未收件数));
+					sheet11课.addCell(new Label(12, count11,  距离80的函数(当月应收件数,当月已收件数)));
+
 
 				} catch (RowsExceededException e) {
 					e.printStackTrace();
@@ -361,6 +365,8 @@ public class doExcel {
 					sheet18课.addCell(new Number(9, count18, 宽末未收件数));
 					sheet18课.addCell(new Number(10, count18, 宽一未收件数));
 					sheet18课.addCell(new Number(11, count18, 总未收件数));
+					sheet18课.addCell(new Label(12, count18,  距离80的函数(当月应收件数,当月已收件数)));
+
 
 				} catch (RowsExceededException e) {
 					e.printStackTrace();
@@ -386,6 +392,8 @@ public class doExcel {
 					sheet22课.addCell(new Number(9, count22, 宽末未收件数));
 					sheet22课.addCell(new Number(10, count22, 宽一未收件数));
 					sheet22课.addCell(new Number(11, count22, 总未收件数));
+					sheet22课.addCell(new Label(12, count22,  距离80的函数(当月应收件数,当月已收件数)));
+
 
 				} catch (RowsExceededException e) {
 					e.printStackTrace();
@@ -423,6 +431,8 @@ public class doExcel {
 		}
 
 		System.out.println("生成excel :  <" + filepath+"> \n");
+		System.out.println("祝彤彤妈妈工作顺利！生活愉快！");
+
 	}
 
 	public String 计算百分比(double 已收, double 应收, int 保留位数) {
@@ -440,6 +450,20 @@ public class doExcel {
 
 	public void setAllPeople( LinkedHashMap<String, people> allPeople) {
 		this.allPeople = allPeople;
+	}
+	
+	public static String 距离80的函数(int 当月应收件数, int 当月已收件数) {
+		double temp = 当月应收件数*0.8-当月已收件数;
+		int result = (int) Math.ceil(temp);
+		String sresult="";
+		if (result<=0) {
+			sresult = "已完成80%";
+		}
+		else{
+			sresult=result+"";
+		}
+		return sresult;
+		
 	}
 
 }
