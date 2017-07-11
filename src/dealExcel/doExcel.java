@@ -226,7 +226,7 @@ public class doExcel {
 		WritableSheet sheet18课 = wwb.createSheet("18课", 2);
 		WritableSheet sheet22课 = wwb.createSheet("22课", 3);
 		String[] 列标题 = { "业务员", "当月应收件数", "当月应收保费", "当月已收件数", "当月已收保费", "当月未收件数", "当月未收保费", "当月件数达成", "当月保费达成",
-				"宽末未收件数", "宽一未收件数", "总未收件数", "距离 80% 目标件数" };
+				"宽末未收件数", "宽一未收件数", "总未收件数", "当月距 80% 差额件数" };
 		try {
 			sheet5课.mergeCells(0, 0, 11, 0);
 			sheet11课.mergeCells(0, 0, 11, 0);
@@ -301,11 +301,13 @@ public class doExcel {
 				try {
 					sheet5课.addCell(new Label(0, count5, name));
 					sheet5课.addCell(new Number(1, count5, 当月应收件数));
-					sheet5课.addCell(new Number(2, count5, 当月应收保费));
+					sheet5课.addCell(new Label(2, count5, (int)Math.round(当月应收保费)+"" ));
 					sheet5课.addCell(new Number(3, count5, 当月已收件数));
-					sheet5课.addCell(new Number(4, count5, 当月已收保费));
+					sheet5课.addCell(new Label(4, count5, (int)Math.round(当月已收保费)+"" ));
+
 					sheet5课.addCell(new Number(5, count5, 当月未收件数));
-					sheet5课.addCell(new Number(6, count5, 当月未收保费));
+					sheet5课.addCell(new Label(6, count5, (int)Math.round(当月未收保费)+"" ));
+	
 					sheet5课.addCell(new Number(7, count5, 当月件数达成, wcfF));
 					sheet5课.addCell(new Number(8, count5, 当月保费达成, wcfF));
 					sheet5课.addCell(new Number(9, count5, 宽末未收件数));
@@ -328,11 +330,14 @@ public class doExcel {
 				try {
 					sheet11课.addCell(new Label(0, count11, name));
 					sheet11课.addCell(new Number(1, count11, 当月应收件数));
-					sheet11课.addCell(new Number(2, count11, 当月应收保费));
+					sheet11课.addCell(new Label(2, count11, (int)Math.round(当月应收保费)+"" ));
+
 					sheet11课.addCell(new Number(3, count11, 当月已收件数));
-					sheet11课.addCell(new Number(4, count11, 当月已收保费));
+					sheet11课.addCell(new Label(4, count11, (int)Math.round(当月已收保费)+"" ));
+
 					sheet11课.addCell(new Number(5, count11, 当月未收件数));
-					sheet11课.addCell(new Number(6, count11, 当月未收保费));
+					sheet11课.addCell(new Label(6, count11, (int)Math.round(当月未收保费)+"" ));
+
 					sheet11课.addCell(new Number(7, count11, 当月件数达成, wcfF));
 					sheet11课.addCell(new Number(8, count11, 当月保费达成, wcfF));
 					sheet11课.addCell(new Number(9, count11, 宽末未收件数));
@@ -355,11 +360,14 @@ public class doExcel {
 				try {
 					sheet18课.addCell(new Label(0, count18, name));
 					sheet18课.addCell(new Number(1, count18, 当月应收件数));
-					sheet18课.addCell(new Number(2, count18, 当月应收保费));
+					sheet18课.addCell(new Label(2, count18, (int)Math.round(当月应收保费)+"" ));
+
 					sheet18课.addCell(new Number(3, count18, 当月已收件数));
-					sheet18课.addCell(new Number(4, count18, 当月已收保费));
+					sheet18课.addCell(new Label(4, count18, (int)Math.round(当月已收保费)+"" ));
+
 					sheet18课.addCell(new Number(5, count18, 当月未收件数));
-					sheet18课.addCell(new Number(6, count18, 当月未收保费));
+					sheet18课.addCell(new Label(6, count18, (int)Math.round(当月未收保费)+"" ));
+
 					sheet18课.addCell(new Number(7, count18, 当月件数达成, wcfF));
 					sheet18课.addCell(new Number(8, count18, 当月保费达成, wcfF));
 					sheet18课.addCell(new Number(9, count18, 宽末未收件数));
@@ -382,11 +390,14 @@ public class doExcel {
 				try {
 					sheet22课.addCell(new Label(0, count22, name));
 					sheet22课.addCell(new Number(1, count22, 当月应收件数));
-					sheet22课.addCell(new Number(2, count22, 当月应收保费));
+					sheet22课.addCell(new Label(2, count22, (int)Math.round(当月应收保费)+"" ));
+
 					sheet22课.addCell(new Number(3, count22, 当月已收件数));
-					sheet22课.addCell(new Number(4, count22, 当月已收保费));
+					sheet22课.addCell(new Label(4, count22, (int)Math.round(当月已收保费)+"" ));
+
 					sheet22课.addCell(new Number(5, count22, 当月未收件数));
-					sheet22课.addCell(new Number(6, count22, 当月未收保费));
+					sheet22课.addCell(new Label(6, count22, (int)Math.round(当月未收保费)+"" ));
+
 					sheet22课.addCell(new Number(7, count22, 当月件数达成, wcfF));
 					sheet22课.addCell(new Number(8, count22, 当月保费达成, wcfF));
 					sheet22课.addCell(new Number(9, count22, 宽末未收件数));
@@ -457,7 +468,7 @@ public class doExcel {
 		int result = (int) Math.ceil(temp);
 		String sresult="";
 		if (result<=0) {
-			sresult = "已完成80%";
+			sresult = " ";
 		}
 		else{
 			sresult=result+"";
