@@ -231,7 +231,8 @@ public class doExcel {
 				getMounth("当")+"月已收件数", getMounth("当")+"月已收保费",
 				getMounth("当")+"月未收件数", getMounth("当")+"月未收保费",
 				getMounth("当")+"月件数达成", getMounth("当")+"月保费达成",
-				getMounth("宽末")+"未收件数", getMounth("宽一")+"未收件数", "总未收件数", "当月距 80% 差额件数" };
+				getMounth("宽末")+"未收件数", getMounth("宽一")+"未收件数", "总未收件数", 
+				getMounth("当")+"月距 80% 差额件数" };
 		try {
 			sheet5课.mergeCells(0, 0, 11, 0);
 			sheet11课.mergeCells(0, 0, 11, 0);
