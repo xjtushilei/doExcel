@@ -231,7 +231,7 @@ public class doExcel {
 				getMounth("当")+"月已收件数", getMounth("当")+"月已收保费",
 				getMounth("当")+"月未收件数", getMounth("当")+"月未收保费",
 				getMounth("当")+"月件数达成", getMounth("当")+"月保费达成",
-				getMounth("宽末")+"未收件数", getMounth("宽一")+"未收件数", "总未收件数", 
+				getMounth("宽末")+"月未收件数", getMounth("宽一")+"月未收件数", "总未收件数", 
 				getMounth("当")+"月距 80% 差额件数" };
 		try {
 			sheet5课.mergeCells(0, 0, 11, 0);
@@ -426,10 +426,10 @@ public class doExcel {
 		整体达标18课 = 计算百分比(总已收件数18课, 总应该收件数18课, 2);
 		整体达标22课 = 计算百分比(总已收件数22课, 总应该收件数22课, 2);
 		try {
-			sheet5课.addCell(new Label(0, 0, "5课当月件数整体达成" + 整体达标5课 + "%"));
-			sheet11课.addCell(new Label(0, 0, "11课当月件数整体达成" + 整体达标11课 + "%"));
-			sheet18课.addCell(new Label(0, 0, "18课当月件数整体达成" + 整体达标18课 + "%"));
-			sheet22课.addCell(new Label(0, 0, "22课当月件数整体达成" + 整体达标22课 + "%"));
+			sheet5课.addCell(new Label(0, 0, "5课"+getMounth("当")+"月件数整体达成" + 整体达标5课 + "%"));
+			sheet11课.addCell(new Label(0, 0, "11课"+getMounth("当")+"月件数整体达成" + 整体达标11课 + "%"));
+			sheet18课.addCell(new Label(0, 0, "18课"+getMounth("当")+"月件数整体达成" + 整体达标18课 + "%"));
+			sheet22课.addCell(new Label(0, 0, "22课"+getMounth("当")+"月件数整体达成" + 整体达标22课 + "%"));
 
 		} catch (RowsExceededException e1) {
 			e1.printStackTrace();
