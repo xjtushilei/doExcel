@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -225,8 +226,12 @@ public class doExcel {
 		WritableSheet sheet11课 = wwb.createSheet("11课", 1);
 		WritableSheet sheet18课 = wwb.createSheet("18课", 2);
 		WritableSheet sheet22课 = wwb.createSheet("22课", 3);
-		String[] 列标题 = { "业务员", "当月应收件数", "当月应收保费", "当月已收件数", "当月已收保费", "当月未收件数", "当月未收保费", "当月件数达成", "当月保费达成",
-				"宽末未收件数", "宽一未收件数", "总未收件数", "当月距 80% 差额件数" };
+		String[] 列标题 = { "业务员", 
+				getMounth("当")+"月应收件数", getMounth("当")+"月应收保费", 
+				getMounth("当")+"月已收件数", getMounth("当")+"月已收保费",
+				getMounth("当")+"月未收件数", getMounth("当")+"月未收保费",
+				getMounth("当")+"月件数达成", getMounth("当")+"月保费达成",
+				getMounth("宽末")+"未收件数", getMounth("宽一")+"未收件数", "总未收件数", "当月距 80% 差额件数" };
 		try {
 			sheet5课.mergeCells(0, 0, 11, 0);
 			sheet11课.mergeCells(0, 0, 11, 0);
@@ -474,6 +479,37 @@ public class doExcel {
 			sresult=result+"";
 		}
 		return sresult;
+		
+	}
+	
+	public static int getMounth(String what) {
+		switch (what) {
+		case "当":
+			return LocalDate.now().getMonthValue();
+		case "宽末":
+			int now =LocalDate.now().getMonthValue();
+			
+			if (now==1) {
+				return 11;
+			}
+			else if (now==2) {
+				return 12;
+			}
+			else {
+				return now-2;
+			}
+			
+		case "宽一":
+			int now1 =LocalDate.now().getMonthValue();
+			if (now1==1) {
+				return 12;
+			}
+			else {
+				return now1-1;
+			}
+		default:
+			return LocalDate.now().getMonthValue();
+		}
 		
 	}
 
