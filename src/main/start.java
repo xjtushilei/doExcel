@@ -16,6 +16,7 @@ public class start {
 		彤彤妈妈的小机器人.do计算();
 		彤彤妈妈的小机器人.do排序();
 		彤彤妈妈的小机器人.写excel();
+		彤彤妈妈的小机器人.writeStyle();
 
 	}
 

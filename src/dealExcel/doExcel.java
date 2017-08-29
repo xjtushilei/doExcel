@@ -1,5 +1,6 @@
 package dealExcel;
 
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -20,6 +21,10 @@ import jxl.NumberCell;
 import jxl.Sheet;
 import jxl.Workbook;
 import jxl.biff.DisplayFormat;
+import jxl.format.Alignment;
+import jxl.format.BorderLineStyle;
+import jxl.format.CellFormat;
+import jxl.format.VerticalAlignment;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
 import jxl.write.Number;
@@ -37,11 +42,229 @@ public class doExcel {
 	private final String path当月应收 = "D:/报表/放报表/当月应收.xls";
 	private final String path宽末未收 = "D:/报表/放报表/宽末未收.xls";
 	private final String path宽一未收 = "D:/报表/放报表/宽一未收.xls";
-	private final String path生成文件 = "D:/报表/生成报表/生成文件"; // 后面生成带日期时间的文件名
-	private  LinkedHashMap<String, people> allPeople = null;
+	private String path生成文件 = "D:/报表/生成报表/生成文件"; // 后面生成带日期时间的文件名
+	private LinkedHashMap<String, people> allPeople = null;
+	private List<CellFormat> formatList = null;
+
+	public static void main(String[] args) {
+
+	}
+
+	public void writeStyle() {
+
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e2) {
+			e2.printStackTrace();
+		}
+		System.out.println("\n开始更改样式！\n");
+		jxl.write.WritableCellFormat 大标题样式 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 17, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.BLACK);
+			大标题样式 = new jxl.write.WritableCellFormat(wf);
+			大标题样式.setBackground(jxl.format.Colour.WHITE);
+			大标题样式.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			大标题样式.setAlignment(Alignment.CENTRE);
+			大标题样式.setWrap(true);
+			大标题样式.setVerticalAlignment(VerticalAlignment.CENTRE);
+
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		jxl.write.WritableCellFormat 标题样式 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.BLACK);
+			标题样式 = new jxl.write.WritableCellFormat(wf);
+			标题样式.setBackground(jxl.format.Colour.WHITE);
+			标题样式.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			标题样式.setAlignment(Alignment.CENTRE);
+			标题样式.setWrap(true);
+			标题样式.setVerticalAlignment(VerticalAlignment.CENTRE);
+
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+		DisplayFormat DisplayFormat = NumberFormats.PERCENT_INTEGER;
+		jxl.write.WritableCellFormat 件数达成样式 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.RED);
+			件数达成样式 = new jxl.write.WritableCellFormat(wf, DisplayFormat);
+			件数达成样式.setBackground(jxl.format.Colour.PALE_BLUE);
+			件数达成样式.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			件数达成样式.setAlignment(Alignment.CENTRE);
+			件数达成样式.setVerticalAlignment(VerticalAlignment.CENTRE);
+			件数达成样式.setWrap(true);
+
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		jxl.write.WritableCellFormat 保费达成样式 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.RED);
+			保费达成样式 = new jxl.write.WritableCellFormat(wf, DisplayFormat);
+			保费达成样式.setBackground(jxl.format.Colour.WHITE);
+			保费达成样式.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			保费达成样式.setAlignment(Alignment.CENTRE);
+			保费达成样式.setWrap(true);
+			保费达成样式.setVerticalAlignment(VerticalAlignment.CENTRE);
+
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		jxl.write.WritableCellFormat 总未收件数 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.RED);
+			总未收件数 = new jxl.write.WritableCellFormat(wf);
+			总未收件数.setBackground(jxl.format.Colour.WHITE);
+			总未收件数.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			总未收件数.setAlignment(Alignment.CENTRE);
+			总未收件数.setWrap(true);
+			总未收件数.setVerticalAlignment(VerticalAlignment.CENTRE);
+
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		jxl.write.WritableCellFormat 非零的样式 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.RED);
+			非零的样式 = new jxl.write.WritableCellFormat(wf);
+			非零的样式.setBackground(jxl.format.Colour.YELLOW);
+			非零的样式.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			非零的样式.setAlignment(Alignment.CENTRE);
+			非零的样式.setWrap(true);
+			非零的样式.setVerticalAlignment(VerticalAlignment.CENTRE);
+
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		jxl.write.WritableCellFormat 祝贺达成 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.BLACK);
+			祝贺达成 = new jxl.write.WritableCellFormat(wf);
+			祝贺达成.setBackground(jxl.format.Colour.LIME);
+			祝贺达成.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			祝贺达成.setAlignment(Alignment.CENTRE);
+			祝贺达成.setWrap(true);
+			祝贺达成.setVerticalAlignment(VerticalAlignment.CENTRE);
+
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		jxl.write.WritableCellFormat 一步之遥 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.BLACK);
+			一步之遥 = new jxl.write.WritableCellFormat(wf);
+			一步之遥.setBackground(jxl.format.Colour.YELLOW);
+			一步之遥.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			一步之遥.setAlignment(Alignment.CENTRE);
+			一步之遥.setWrap(true);
+			一步之遥.setVerticalAlignment(VerticalAlignment.CENTRE);
+
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		jxl.write.WritableCellFormat 加油 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.BLACK);
+			加油 = new jxl.write.WritableCellFormat(wf);
+			加油.setBackground(jxl.format.Colour.ORANGE);
+			加油.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			加油.setAlignment(Alignment.CENTRE);
+			加油.setWrap(true);
+			加油.setVerticalAlignment(VerticalAlignment.CENTRE);
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		jxl.write.WritableCellFormat 需改善 = null;
+		try {
+			jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+			wf.setColour(jxl.format.Colour.BLACK);
+			需改善 = new jxl.write.WritableCellFormat(wf);
+			需改善.setBackground(jxl.format.Colour.TAN);
+			需改善.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+			需改善.setAlignment(Alignment.CENTRE);
+			需改善.setWrap(true);
+			需改善.setVerticalAlignment(VerticalAlignment.CENTRE);
+		} catch (WriteException e1) {
+			e1.printStackTrace();
+		}
+
+		try {
+			Workbook rwb = Workbook.getWorkbook(new File(path生成文件));// 原xls文件
+			WritableWorkbook wwb = Workbook.createWorkbook(new File(path生成文件), rwb);// 临时xls文件
+			for(int count_sheet=0;count_sheet<=3;count_sheet++){
+				WritableSheet sheet = wwb.getSheet(count_sheet);// 工作表
+				sheet.getWritableCell(0, 0).setCellFormat(大标题样式);
+
+				for (int j = 1; j < sheet.getRows(); j++) {
+					for (int i = 0; i <= 13; i++) {
+						if (i >= 0 && i <= 6) {
+							sheet.getWritableCell(i, j).setCellFormat(标题样式);
+						}
+						if (i >= 9 && i <= 10) {
+							if (j == 1) {
+								sheet.getWritableCell(i, j).setCellFormat(标题样式);
+
+							} else {
+								if (!sheet.getCell(i, j).getContents().equals("0")) {
+									sheet.getWritableCell(i, j).setCellFormat(非零的样式);
+								} else {
+									sheet.getWritableCell(i, j).setCellFormat(标题样式);
+								}
+
+							}
+						}
+					}
+					sheet.getWritableCell(7, j).setCellFormat(件数达成样式);
+					sheet.getWritableCell(8, j).setCellFormat(保费达成样式);
+					sheet.getWritableCell(11, j).setCellFormat(总未收件数);
+					sheet.getWritableCell(12, j).setCellFormat(标题样式);
+				}
+
+				for(int i=0;i<=11;i++){
+					sheet.setColumnView(i, 10);
+				}
+				sheet.setColumnView(12, 15);
+				sheet.setRowView(0, 800);
+				sheet.setRowView(1, 800);
+			}
+
+			wwb.write();
+			wwb.close();
+			rwb.close();
+			System.out.println("\n样式更改完成 !\n");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		System.out.println("最终文件 :  <" + path生成文件 + "> \n");
+		System.out.println("祝彤彤妈妈工作顺利！生活愉快！");
+	}
 
 	public void init() {
-		allPeople = new  LinkedHashMap<String, people>();
+		allPeople = new LinkedHashMap<String, people>();
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");// 设置日期格式
+		path生成文件 = path生成文件 + "_" + df.format(new Date()) + ".xls";
+
 	}
 
 	public void do当月已收() {
@@ -72,7 +295,7 @@ public class doExcel {
 				allPeople.get(name).set当月已收保费(allPeople.get(name).get当月已收保费() + 当月已收保费);
 			}
 		}
-		System.out.println("处理"+"  <"+path当月已收+">  完毕!\n");
+		System.out.println("处理" + "  <" + path当月已收 + ">  完毕!\n");
 	}
 
 	public void do当月应收() {
@@ -103,7 +326,7 @@ public class doExcel {
 				allPeople.get(name).set当月应收保费(allPeople.get(name).get当月应收保费() + 当月应收保费);
 			}
 		}
-		System.out.println("处理"+"  <"+path当月应收+">  完毕!\n");
+		System.out.println("处理" + "  <" + path当月应收 + ">  完毕!\n");
 	}
 
 	public void do宽末未收() {
@@ -130,7 +353,7 @@ public class doExcel {
 				allPeople.get(name).set宽末未收件数(allPeople.get(name).get宽末未收件数() + 1);
 			}
 		}
-		System.out.println("处理"+"  <"+path宽末未收+">  完毕!\n");
+		System.out.println("处理" + "  <" + path宽末未收 + ">  完毕!\n");
 	}
 
 	public void do宽一未收() {
@@ -157,7 +380,7 @@ public class doExcel {
 				allPeople.get(name).set宽一未收件数(allPeople.get(name).get宽一未收件数() + 1);
 			}
 		}
-		System.out.println("处理"+"  <"+path宽一未收+">  完毕!\n");
+		System.out.println("处理" + "  <" + path宽一未收 + ">  完毕!\n");
 	}
 
 	public void do计算() {
@@ -186,38 +409,38 @@ public class doExcel {
 		}
 		System.out.println("计算完毕！\n");
 	}
-	public void do排序() {
-		List<Map.Entry<String, people>> infoIds =new ArrayList<Map.Entry<String, people>>(allPeople.entrySet());
-		
 
-		Collections.sort(infoIds, new Comparator<Map.Entry<String, people>>() {   
-            public int compare(Map.Entry<String, people> o1, Map.Entry<String, people> o2) {      
-            	people p1 = (people) o1.getValue();
-            	people p2 = (people) o2.getValue();;
-                
-            	double 当月件数达成1=p1.get当月件数达成();
-            	double 当月件数达成2=p2.get当月件数达成();
-                return Double.compare(当月件数达成2, 当月件数达成1);
-            }
-        });
-		/*转换成新map输出*/
-        LinkedHashMap<String, people> newMap = new LinkedHashMap <String, people>();
-         
-        for(Map.Entry<String,people> entity : infoIds){
-            newMap.put(entity.getKey(), entity.getValue());
-        }
-        allPeople=newMap;
+	public void do排序() {
+		List<Map.Entry<String, people>> infoIds = new ArrayList<Map.Entry<String, people>>(allPeople.entrySet());
+
+		Collections.sort(infoIds, new Comparator<Map.Entry<String, people>>() {
+			public int compare(Map.Entry<String, people> o1, Map.Entry<String, people> o2) {
+				people p1 = (people) o1.getValue();
+				people p2 = (people) o2.getValue();
+				;
+
+				double 当月件数达成1 = p1.get当月件数达成();
+				double 当月件数达成2 = p2.get当月件数达成();
+				return Double.compare(当月件数达成2, 当月件数达成1);
+			}
+		});
+		/* 转换成新map输出 */
+		LinkedHashMap<String, people> newMap = new LinkedHashMap<String, people>();
+
+		for (Map.Entry<String, people> entity : infoIds) {
+			newMap.put(entity.getKey(), entity.getValue());
+		}
+		allPeople = newMap;
 		System.out.println("排序完毕！\n");
 	}
 
 	public void 写excel() {
 		System.out.println("开始生成文件！\n");
-		SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");// 设置日期格式
-		String filepath = path生成文件 + "_" + df.format(new Date()) + ".xls";
+
 		// 创建一个可写入的工作表
 		WritableWorkbook wwb = null;
 		try {
-			wwb = Workbook.createWorkbook(new File(filepath));
+			wwb = Workbook.createWorkbook(new File(path生成文件));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -226,18 +449,15 @@ public class doExcel {
 		WritableSheet sheet11课 = wwb.createSheet("11课", 1);
 		WritableSheet sheet18课 = wwb.createSheet("18课", 2);
 		WritableSheet sheet22课 = wwb.createSheet("22课", 3);
-		String[] 列标题 = { "业务员", 
-				getMounth("当")+"月应收件数", getMounth("当")+"月应收保费", 
-				getMounth("当")+"月已收件数", getMounth("当")+"月已收保费",
-				getMounth("当")+"月未收件数", getMounth("当")+"月未收保费",
-				getMounth("当")+"月件数达成", getMounth("当")+"月保费达成",
-				getMounth("宽末")+"月未收件数", getMounth("宽一")+"月未收件数", "总未收件数", 
-				getMounth("当")+"月距 80% 差额件数" };
+		String[] 列标题 = { "业务员", getMounth("当") + "月应\n收件数", getMounth("当") + "月应\n收保费", getMounth("当") + "月已\n收件数",
+				getMounth("当") + "月已\n收保费", getMounth("当") + "月未\n收件数", getMounth("当") + "月未\n收保费",
+				getMounth("当") + "月件\n数达成", getMounth("当") + "月保\n费达成", getMounth("宽末") + "月未\n收件数",
+				getMounth("宽一") + "月未\n收件数", "总未收\n件数", getMounth("当") + "月距 80% \n差额件数" };
 		try {
-			sheet5课.mergeCells(0, 0, 11, 0);
-			sheet11课.mergeCells(0, 0, 11, 0);
-			sheet18课.mergeCells(0, 0, 11, 0);
-			sheet22课.mergeCells(0, 0, 11, 0);
+			sheet5课.mergeCells(0, 0, 12, 0);
+			sheet11课.mergeCells(0, 0, 12, 0);
+			sheet18课.mergeCells(0, 0, 12, 0);
+			sheet22课.mergeCells(0, 0, 12, 0);
 
 			for (int i = 0; i < 列标题.length; i++) {
 				// 设置列宽
@@ -307,20 +527,19 @@ public class doExcel {
 				try {
 					sheet5课.addCell(new Label(0, count5, name));
 					sheet5课.addCell(new Number(1, count5, 当月应收件数));
-					sheet5课.addCell(new Label(2, count5, (int)Math.round(当月应收保费)+"" ));
+					sheet5课.addCell(new Label(2, count5, (int) Math.round(当月应收保费) + ""));
 					sheet5课.addCell(new Number(3, count5, 当月已收件数));
-					sheet5课.addCell(new Label(4, count5, (int)Math.round(当月已收保费)+"" ));
+					sheet5课.addCell(new Label(4, count5, (int) Math.round(当月已收保费) + ""));
 
 					sheet5课.addCell(new Number(5, count5, 当月未收件数));
-					sheet5课.addCell(new Label(6, count5, (int)Math.round(当月未收保费)+"" ));
-	
+					sheet5课.addCell(new Label(6, count5, (int) Math.round(当月未收保费) + ""));
+
 					sheet5课.addCell(new Number(7, count5, 当月件数达成, wcfF));
 					sheet5课.addCell(new Number(8, count5, 当月保费达成, wcfF));
 					sheet5课.addCell(new Number(9, count5, 宽末未收件数));
 					sheet5课.addCell(new Number(10, count5, 宽一未收件数));
 					sheet5课.addCell(new Number(11, count5, 总未收件数));
-					sheet5课.addCell(new Label(12, count5,  距离80的函数(当月应收件数,当月已收件数)));
-
+					sheet5课.addCell(new Label(12, count5, 距离80的函数(当月应收件数, 当月已收件数)));
 
 				} catch (RowsExceededException e) {
 					e.printStackTrace();
@@ -336,21 +555,20 @@ public class doExcel {
 				try {
 					sheet11课.addCell(new Label(0, count11, name));
 					sheet11课.addCell(new Number(1, count11, 当月应收件数));
-					sheet11课.addCell(new Label(2, count11, (int)Math.round(当月应收保费)+"" ));
+					sheet11课.addCell(new Label(2, count11, (int) Math.round(当月应收保费) + ""));
 
 					sheet11课.addCell(new Number(3, count11, 当月已收件数));
-					sheet11课.addCell(new Label(4, count11, (int)Math.round(当月已收保费)+"" ));
+					sheet11课.addCell(new Label(4, count11, (int) Math.round(当月已收保费) + ""));
 
 					sheet11课.addCell(new Number(5, count11, 当月未收件数));
-					sheet11课.addCell(new Label(6, count11, (int)Math.round(当月未收保费)+"" ));
+					sheet11课.addCell(new Label(6, count11, (int) Math.round(当月未收保费) + ""));
 
 					sheet11课.addCell(new Number(7, count11, 当月件数达成, wcfF));
 					sheet11课.addCell(new Number(8, count11, 当月保费达成, wcfF));
 					sheet11课.addCell(new Number(9, count11, 宽末未收件数));
 					sheet11课.addCell(new Number(10, count11, 宽一未收件数));
 					sheet11课.addCell(new Number(11, count11, 总未收件数));
-					sheet11课.addCell(new Label(12, count11,  距离80的函数(当月应收件数,当月已收件数)));
-
+					sheet11课.addCell(new Label(12, count11, 距离80的函数(当月应收件数, 当月已收件数)));
 
 				} catch (RowsExceededException e) {
 					e.printStackTrace();
@@ -366,21 +584,20 @@ public class doExcel {
 				try {
 					sheet18课.addCell(new Label(0, count18, name));
 					sheet18课.addCell(new Number(1, count18, 当月应收件数));
-					sheet18课.addCell(new Label(2, count18, (int)Math.round(当月应收保费)+"" ));
+					sheet18课.addCell(new Label(2, count18, (int) Math.round(当月应收保费) + ""));
 
 					sheet18课.addCell(new Number(3, count18, 当月已收件数));
-					sheet18课.addCell(new Label(4, count18, (int)Math.round(当月已收保费)+"" ));
+					sheet18课.addCell(new Label(4, count18, (int) Math.round(当月已收保费) + ""));
 
 					sheet18课.addCell(new Number(5, count18, 当月未收件数));
-					sheet18课.addCell(new Label(6, count18, (int)Math.round(当月未收保费)+"" ));
+					sheet18课.addCell(new Label(6, count18, (int) Math.round(当月未收保费) + ""));
 
 					sheet18课.addCell(new Number(7, count18, 当月件数达成, wcfF));
 					sheet18课.addCell(new Number(8, count18, 当月保费达成, wcfF));
 					sheet18课.addCell(new Number(9, count18, 宽末未收件数));
 					sheet18课.addCell(new Number(10, count18, 宽一未收件数));
 					sheet18课.addCell(new Number(11, count18, 总未收件数));
-					sheet18课.addCell(new Label(12, count18,  距离80的函数(当月应收件数,当月已收件数)));
-
+					sheet18课.addCell(new Label(12, count18, 距离80的函数(当月应收件数, 当月已收件数)));
 
 				} catch (RowsExceededException e) {
 					e.printStackTrace();
@@ -388,29 +605,27 @@ public class doExcel {
 					e.printStackTrace();
 				}
 				count18++;
-			}
-			else if (课.equals("22课")) {
+			} else if (课.equals("22课")) {
 				总已收件数22课 = 总已收件数22课 + 当月已收件数;
 				总应该收件数22课 = 总应该收件数22课 + 当月应收件数;
 
 				try {
 					sheet22课.addCell(new Label(0, count22, name));
 					sheet22课.addCell(new Number(1, count22, 当月应收件数));
-					sheet22课.addCell(new Label(2, count22, (int)Math.round(当月应收保费)+"" ));
+					sheet22课.addCell(new Label(2, count22, (int) Math.round(当月应收保费) + ""));
 
 					sheet22课.addCell(new Number(3, count22, 当月已收件数));
-					sheet22课.addCell(new Label(4, count22, (int)Math.round(当月已收保费)+"" ));
+					sheet22课.addCell(new Label(4, count22, (int) Math.round(当月已收保费) + ""));
 
 					sheet22课.addCell(new Number(5, count22, 当月未收件数));
-					sheet22课.addCell(new Label(6, count22, (int)Math.round(当月未收保费)+"" ));
+					sheet22课.addCell(new Label(6, count22, (int) Math.round(当月未收保费) + ""));
 
 					sheet22课.addCell(new Number(7, count22, 当月件数达成, wcfF));
 					sheet22课.addCell(new Number(8, count22, 当月保费达成, wcfF));
 					sheet22课.addCell(new Number(9, count22, 宽末未收件数));
 					sheet22课.addCell(new Number(10, count22, 宽一未收件数));
 					sheet22课.addCell(new Number(11, count22, 总未收件数));
-					sheet22课.addCell(new Label(12, count22,  距离80的函数(当月应收件数,当月已收件数)));
-
+					sheet22课.addCell(new Label(12, count22, 距离80的函数(当月应收件数, 当月已收件数)));
 
 				} catch (RowsExceededException e) {
 					e.printStackTrace();
@@ -426,10 +641,10 @@ public class doExcel {
 		整体达标18课 = 计算百分比(总已收件数18课, 总应该收件数18课, 2);
 		整体达标22课 = 计算百分比(总已收件数22课, 总应该收件数22课, 2);
 		try {
-			sheet5课.addCell(new Label(0, 0, "5课"+getMounth("当")+"月件数整体达成" + 整体达标5课 + "%"));
-			sheet11课.addCell(new Label(0, 0, "11课"+getMounth("当")+"月件数整体达成" + 整体达标11课 + "%"));
-			sheet18课.addCell(new Label(0, 0, "18课"+getMounth("当")+"月件数整体达成" + 整体达标18课 + "%"));
-			sheet22课.addCell(new Label(0, 0, "22课"+getMounth("当")+"月件数整体达成" + 整体达标22课 + "%"));
+			sheet5课.addCell(new Label(0, 0, "5课" + getMounth("当") + "月件数整体达成" + 整体达标5课 + "%"));
+			sheet11课.addCell(new Label(0, 0, "11课" + getMounth("当") + "月件数整体达成" + 整体达标11课 + "%"));
+			sheet18课.addCell(new Label(0, 0, "18课" + getMounth("当") + "月件数整体达成" + 整体达标18课 + "%"));
+			sheet22课.addCell(new Label(0, 0, "22课" + getMounth("当") + "月件数整体达成" + 整体达标22课 + "%"));
 
 		} catch (RowsExceededException e1) {
 			e1.printStackTrace();
@@ -447,8 +662,7 @@ public class doExcel {
 			e.printStackTrace();
 		}
 
-		System.out.println("生成excel :  <" + filepath+"> \n");
-		System.out.println("祝彤彤妈妈工作顺利！生活愉快！");
+		System.out.println("生成excel!");
 
 	}
 
@@ -461,57 +675,53 @@ public class doExcel {
 		return result;
 	}
 
-	public  LinkedHashMap<String, people> getAllPeople() {
+	public LinkedHashMap<String, people> getAllPeople() {
 		return allPeople;
 	}
 
-	public void setAllPeople( LinkedHashMap<String, people> allPeople) {
+	public void setAllPeople(LinkedHashMap<String, people> allPeople) {
 		this.allPeople = allPeople;
 	}
-	
+
 	public static String 距离80的函数(int 当月应收件数, int 当月已收件数) {
-		double temp = 当月应收件数*0.8-当月已收件数;
+		double temp = 当月应收件数 * 0.8 - 当月已收件数;
 		int result = (int) Math.ceil(temp);
-		String sresult="";
-		if (result<=0) {
+		String sresult = "";
+		if (result <= 0) {
 			sresult = " ";
-		}
-		else{
-			sresult=result+"";
+		} else {
+			sresult = result + "";
 		}
 		return sresult;
-		
+
 	}
-	
+
 	public static int getMounth(String what) {
 		switch (what) {
 		case "当":
 			return LocalDate.now().getMonthValue();
 		case "宽末":
-			int now =LocalDate.now().getMonthValue();
-			
-			if (now==1) {
+			int now = LocalDate.now().getMonthValue();
+
+			if (now == 1) {
 				return 11;
-			}
-			else if (now==2) {
+			} else if (now == 2) {
 				return 12;
+			} else {
+				return now - 2;
 			}
-			else {
-				return now-2;
-			}
-			
+
 		case "宽一":
-			int now1 =LocalDate.now().getMonthValue();
-			if (now1==1) {
+			int now1 = LocalDate.now().getMonthValue();
+			if (now1 == 1) {
 				return 12;
-			}
-			else {
-				return now1-1;
+			} else {
+				return now1 - 1;
 			}
 		default:
 			return LocalDate.now().getMonthValue();
 		}
-		
+
 	}
 
 }
