@@ -514,8 +514,14 @@ public class doExcel {
 			double 当月已收保费 = entry.getValue().get当月已收保费();
 			int 当月未收件数 = entry.getValue().get当月未收件数();
 			double 当月未收保费 = entry.getValue().get当月未收保费();
+			if (当月未收保费<0) {
+				当月未收保费=0;
+			}
 			double 当月件数达成 = entry.getValue().get当月件数达成();
 			double 当月保费达成 = entry.getValue().get当月保费达成();
+			if (当月保费达成>1.0000000001) {
+				当月保费达成=1;
+			}
 			int 宽末未收件数 = entry.getValue().get宽末未收件数();
 			int 宽一未收件数 = entry.getValue().get宽一未收件数();
 			int 总未收件数 = entry.getValue().get总未收件数();
