@@ -311,9 +311,9 @@ public class doExcel {
 		Sheet sheet = wb.getSheet(0); // get sheet(0)
 		// 遍历
 		for (int i = 1; i < sheet.getRows(); i++) {
-			String name = sheet.getCell(8, i).getContents();
-			String 业务员部门id = sheet.getCell(11, i).getContents();
-			double 当月应收保费 = ((NumberCell) sheet.getCell(4, i)).getValue();
+			String name = sheet.getCell(9, i).getContents();
+			String 业务员部门id = sheet.getCell(12, i).getContents();
+			double 当月应收保费 = ((NumberCell) sheet.getCell(5, i)).getValue();
 
 			// System.out.println(name+当月应收保费);
 
@@ -341,8 +341,8 @@ public class doExcel {
 		Sheet sheet = wb.getSheet(0); // get sheet(0)
 		// 遍历
 		for (int i = 1; i < sheet.getRows(); i++) {
-			String name = sheet.getCell(8, i).getContents();
-			String 业务员部门id = sheet.getCell(7, i).getContents();
+			String name = sheet.getCell(9, i).getContents();
+			String 业务员部门id = sheet.getCell(12, i).getContents();
 
 			// System.out.println(name);
 
@@ -368,8 +368,8 @@ public class doExcel {
 		Sheet sheet = wb.getSheet(0); // get sheet(0)
 		// 遍历
 		for (int i = 1; i < sheet.getRows(); i++) {
-			String name = sheet.getCell(8, i).getContents();
-			String 业务员部门id = sheet.getCell(7, i).getContents();
+			String name = sheet.getCell(9, i).getContents();
+			String 业务员部门id = sheet.getCell(12, i).getContents();
 
 			// System.out.println(name);
 
