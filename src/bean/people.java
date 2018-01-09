@@ -50,6 +50,9 @@ public class people {
 		else if (业务员部门id.equals("11100104129")) {
 			this.课 = "22课";
 		}
+		else if (业务员部门id.equals("11100112847")) {
+			this.课 = "27课";
+		}
 
 	}
 

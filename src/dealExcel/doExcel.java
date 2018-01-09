@@ -1,6 +1,5 @@
 package dealExcel;
 
-import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.text.NumberFormat;
@@ -23,7 +22,6 @@ import jxl.Workbook;
 import jxl.biff.DisplayFormat;
 import jxl.format.Alignment;
 import jxl.format.BorderLineStyle;
-import jxl.format.CellFormat;
 import jxl.format.VerticalAlignment;
 import jxl.read.biff.BiffException;
 import jxl.write.Label;
@@ -44,7 +42,6 @@ public class doExcel {
 	private final String path宽一未收 = "D:/报表/放报表/宽一未收.xls";
 	private String path生成文件 = "D:/报表/生成报表/生成文件"; // 后面生成带日期时间的文件名
 	private LinkedHashMap<String, people> allPeople = null;
-	private List<CellFormat> formatList = null;
 
 	public static void main(String[] args) {
 
@@ -209,7 +206,7 @@ public class doExcel {
 		try {
 			Workbook rwb = Workbook.getWorkbook(new File(path生成文件));// 原xls文件
 			WritableWorkbook wwb = Workbook.createWorkbook(new File(path生成文件), rwb);// 临时xls文件
-			for(int count_sheet=0;count_sheet<=3;count_sheet++){
+			for (int count_sheet = 0; count_sheet <= 3; count_sheet++) {
 				WritableSheet sheet = wwb.getSheet(count_sheet);// 工作表
 				sheet.getWritableCell(0, 0).setCellFormat(大标题样式);
 
@@ -238,7 +235,7 @@ public class doExcel {
 					sheet.getWritableCell(12, j).setCellFormat(标题样式);
 				}
 
-				for(int i=0;i<=11;i++){
+				for (int i = 0; i <= 11; i++) {
 					sheet.setColumnView(i, 10);
 				}
 				sheet.setColumnView(12, 15);
@@ -449,6 +446,7 @@ public class doExcel {
 		WritableSheet sheet11课 = wwb.createSheet("11课", 1);
 		WritableSheet sheet18课 = wwb.createSheet("18课", 2);
 		WritableSheet sheet22课 = wwb.createSheet("22课", 3);
+		WritableSheet sheet27课 = wwb.createSheet("27课", 4);
 		String[] 列标题 = { "业务员", getMounth("当") + "月应\n收件数", getMounth("当") + "月应\n收保费", getMounth("当") + "月已\n收件数",
 				getMounth("当") + "月已\n收保费", getMounth("当") + "月未\n收件数", getMounth("当") + "月未\n收保费",
 				getMounth("当") + "月件\n数达成", getMounth("当") + "月保\n费达成", getMounth("宽末") + "月未\n收件数",
@@ -458,7 +456,7 @@ public class doExcel {
 			sheet11课.mergeCells(0, 0, 12, 0);
 			sheet18课.mergeCells(0, 0, 12, 0);
 			sheet22课.mergeCells(0, 0, 12, 0);
-
+			sheet27课.mergeCells(0, 0, 12, 0);
 			for (int i = 0; i < 列标题.length; i++) {
 				// 设置列宽
 				CellView cellView = new CellView();
@@ -467,11 +465,14 @@ public class doExcel {
 				sheet11课.setColumnView(i, cellView);
 				sheet18课.setColumnView(i, cellView);
 				sheet22课.setColumnView(i, cellView);
+				sheet27课.setColumnView(i, cellView);
 
 				sheet5课.addCell(new Label(i, 1, 列标题[i]));
 				sheet11课.addCell(new Label(i, 1, 列标题[i]));
 				sheet18课.addCell(new Label(i, 1, 列标题[i]));
 				sheet22课.addCell(new Label(i, 1, 列标题[i]));
+				sheet27课.addCell(new Label(i, 1, 列标题[i]));
+
 			}
 		} catch (RowsExceededException e) {
 			e.printStackTrace();
@@ -483,22 +484,26 @@ public class doExcel {
 		int 总已收件数11课 = 0;
 		int 总已收件数18课 = 0;
 		int 总已收件数22课 = 0;
+		int 总已收件数27课 = 0;
 
 		int 总应该收件数5课 = 0;
 		int 总应该收件数11课 = 0;
 		int 总应该收件数18课 = 0;
 		int 总应该收件数22课 = 0;
+		int 总应该收件数27课 = 0;
 
 		String 整体达标5课 = "";
 		String 整体达标11课 = "";
 		String 整体达标18课 = "";
 		String 整体达标22课 = "";
+		String 整体达标27课 = "";
 
 		// 记录当前写到了第几行
 		int count5 = 2;
 		int count11 = 2;
 		int count18 = 2;
 		int count22 = 2;
+		int count27 = 2;
 
 		// 定义百分数形式
 		WritableFont wf = new WritableFont(WritableFont.ARIAL, 10, WritableFont.NO_BOLD, false);
@@ -514,13 +519,13 @@ public class doExcel {
 			double 当月已收保费 = entry.getValue().get当月已收保费();
 			int 当月未收件数 = entry.getValue().get当月未收件数();
 			double 当月未收保费 = entry.getValue().get当月未收保费();
-			if (当月未收保费<0) {
-				当月未收保费=0;
+			if (当月未收保费 < 0) {
+				当月未收保费 = 0;
 			}
 			double 当月件数达成 = entry.getValue().get当月件数达成();
 			double 当月保费达成 = entry.getValue().get当月保费达成();
-			if (当月保费达成>1.0000000001) {
-				当月保费达成=1;
+			if (当月保费达成 > 1.0000000001) {
+				当月保费达成 = 1;
 			}
 			int 宽末未收件数 = entry.getValue().get宽末未收件数();
 			int 宽一未收件数 = entry.getValue().get宽一未收件数();
@@ -639,6 +644,34 @@ public class doExcel {
 					e.printStackTrace();
 				}
 				count22++;
+			} else if (课.equals("27课")) {
+				总已收件数27课 = 总已收件数27课 + 当月已收件数;
+				总应该收件数27课 = 总应该收件数27课 + 当月应收件数;
+
+				try {
+					sheet27课.addCell(new Label(0, count27, name));
+					sheet27课.addCell(new Number(1, count27, 当月应收件数));
+					sheet27课.addCell(new Label(2, count27, (int) Math.round(当月应收保费) + ""));
+
+					sheet27课.addCell(new Number(3, count27, 当月已收件数));
+					sheet27课.addCell(new Label(4, count27, (int) Math.round(当月已收保费) + ""));
+
+					sheet27课.addCell(new Number(5, count27, 当月未收件数));
+					sheet27课.addCell(new Label(6, count27, (int) Math.round(当月未收保费) + ""));
+
+					sheet27课.addCell(new Number(7, count27, 当月件数达成, wcfF));
+					sheet27课.addCell(new Number(8, count27, 当月保费达成, wcfF));
+					sheet27课.addCell(new Number(9, count27, 宽末未收件数));
+					sheet27课.addCell(new Number(10, count27, 宽一未收件数));
+					sheet27课.addCell(new Number(11, count27, 总未收件数));
+					sheet27课.addCell(new Label(12, count27, 距离80的函数(当月应收件数, 当月已收件数)));
+
+				} catch (RowsExceededException e) {
+					e.printStackTrace();
+				} catch (WriteException e) {
+					e.printStackTrace();
+				}
+				count22++;
 			}
 		}
 
@@ -646,12 +679,15 @@ public class doExcel {
 		整体达标11课 = 计算百分比(总已收件数11课, 总应该收件数11课, 2);
 		整体达标18课 = 计算百分比(总已收件数18课, 总应该收件数18课, 2);
 		整体达标22课 = 计算百分比(总已收件数22课, 总应该收件数22课, 2);
+		整体达标27课 = 计算百分比(总已收件数27课, 总应该收件数27课, 2);
+		
 		try {
 			sheet5课.addCell(new Label(0, 0, "5课" + getMounth("当") + "月件数整体达成" + 整体达标5课 + "%"));
 			sheet11课.addCell(new Label(0, 0, "11课" + getMounth("当") + "月件数整体达成" + 整体达标11课 + "%"));
 			sheet18课.addCell(new Label(0, 0, "18课" + getMounth("当") + "月件数整体达成" + 整体达标18课 + "%"));
 			sheet22课.addCell(new Label(0, 0, "22课" + getMounth("当") + "月件数整体达成" + 整体达标22课 + "%"));
-
+			sheet27课.addCell(new Label(0, 0, "27课" + getMounth("当") + "月件数整体达成" + 整体达标27课 + "%"));
+			
 		} catch (RowsExceededException e1) {
 			e1.printStackTrace();
 		} catch (WriteException e1) {
