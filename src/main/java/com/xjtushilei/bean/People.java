@@ -21,11 +21,11 @@ public class People {
     private int 总未收件数 = 0;
 
     /**
-     * @param 业务员部门id
+     * @param 课
      */
-    public People(String 业务员部门id) {
+    public People(String 课) {
         super();
-        this.set课(业务员部门id);
+        this.set课(课);
     }
 
     /**
@@ -39,21 +39,8 @@ public class People {
         return 课;
     }
 
-    public void set课(String 业务员部门id) {
-        if (业务员部门id.equals("11100067713")) {
-            this.课 = "5课";
-        } else if (业务员部门id.equals("11100073346")) {
-            this.课 = "18课";
-        } else if (业务员部门id.equals("11100020425")) {
-            this.课 = "11课";
-        } else if (业务员部门id.equals("11100104129")) {
-            this.课 = "22课";
-        } else if (业务员部门id.equals("11100112847")) {
-            this.课 = "27课";
-        } else if (业务员部门id.equals("11100118816")) {
-            this.课 = "28课";
-        }
-
+    public void set课(String 课) {
+        this.课 = 课;
     }
 
     public int get当月应收件数() {
