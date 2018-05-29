@@ -1,0 +1,30 @@
+apply plugin: 'java'
+
+group = 'com.xjtushilei'
+version = ''
+sourceCompatibility = 1.8
+tasks.withType(JavaCompile) {
+    options.encoding = "UTF-8"
+}
+archivesBaseName="newmain"
+
+repositories {
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public" }
+}
+
+
+dependencies {
+    compile group: 'net.sourceforge.jexcelapi', name: 'jxl', version: '2.6.12'
+
+}
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": 1.0,
+                "Main-Class": "com.xjtushilei.Start")
+    }
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    into('assets') {
+        from 'assets'
+    }
+}
