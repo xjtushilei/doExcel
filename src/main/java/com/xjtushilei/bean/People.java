@@ -21,7 +21,7 @@ public class People {
     private int 总未收件数 = 0;
 
     /**
-     * @param 课
+     * @param 业务员部门id
      */
     public People(String 业务员部门id) {
         super();
