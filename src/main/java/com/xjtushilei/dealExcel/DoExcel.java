@@ -235,7 +235,7 @@ public class DoExcel {
         try {
             Workbook rwb = Workbook.getWorkbook(new File(path生成文件));// 原xls文件
             WritableWorkbook wwb = Workbook.createWorkbook(new File(path生成文件), rwb);// 临时xls文件
-            for (int count_sheet = 0; count_sheet <= 4; count_sheet++) {
+            for (int count_sheet = 0; count_sheet <= 5; count_sheet++) {
                 WritableSheet sheet = wwb.getSheet(count_sheet);// 工作表
                 sheet.getWritableCell(0, 0).setCellFormat(大标题样式);
 
