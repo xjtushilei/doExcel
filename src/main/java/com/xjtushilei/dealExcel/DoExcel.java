@@ -86,7 +86,6 @@ public class DoExcel {
     }
 
     public void writeStyle() {
-
         try {
             Thread.sleep(1000);
         } catch (InterruptedException e2) {
@@ -191,7 +190,7 @@ public class DoExcel {
             祝贺达成.setBackground(jxl.format.Colour.LIME);
             祝贺达成.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
             祝贺达成.setAlignment(Alignment.CENTRE);
-            祝贺达成.setWrap(true);
+            祝贺达成.setWrap(false);
             祝贺达成.setVerticalAlignment(VerticalAlignment.CENTRE);
 
         } catch (WriteException e1) {
@@ -206,23 +205,23 @@ public class DoExcel {
             一步之遥.setBackground(jxl.format.Colour.YELLOW);
             一步之遥.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
             一步之遥.setAlignment(Alignment.CENTRE);
-            一步之遥.setWrap(true);
+            一步之遥.setWrap(false);
             一步之遥.setVerticalAlignment(VerticalAlignment.CENTRE);
 
         } catch (WriteException e1) {
             e1.printStackTrace();
         }
 
-        jxl.write.WritableCellFormat 加油 = null;
+        jxl.write.WritableCellFormat 追赶进度 = null;
         try {
             jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
             wf.setColour(jxl.format.Colour.BLACK);
-            加油 = new jxl.write.WritableCellFormat(wf);
-            加油.setBackground(jxl.format.Colour.ORANGE);
-            加油.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
-            加油.setAlignment(Alignment.CENTRE);
-            加油.setWrap(true);
-            加油.setVerticalAlignment(VerticalAlignment.CENTRE);
+            追赶进度 = new jxl.write.WritableCellFormat(wf);
+            追赶进度.setBackground(jxl.format.Colour.ORANGE);
+            追赶进度.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+            追赶进度.setAlignment(Alignment.CENTRE);
+            追赶进度.setWrap(true);
+            追赶进度.setVerticalAlignment(VerticalAlignment.CENTRE);
         } catch (WriteException e1) {
             e1.printStackTrace();
         }
@@ -274,12 +273,62 @@ public class DoExcel {
                     sheet.getWritableCell(8, j).setCellFormat(保费达成样式);
                     sheet.getWritableCell(11, j).setCellFormat(总未收件数);
                     sheet.getWritableCell(12, j).setCellFormat(标题样式);
+                    String res = sheet.getCell(13, j).getContents();
+                    switch (res) {
+                        case "祝贺达成": {
+                            sheet.getWritableCell(0, j).setCellFormat(祝贺达成);
+                            sheet.getWritableCell(1, j).setCellFormat(祝贺达成);
+                            sheet.getWritableCell(2, j).setCellFormat(祝贺达成);
+                            sheet.getWritableCell(3, j).setCellFormat(祝贺达成);
+                            sheet.getWritableCell(4, j).setCellFormat(祝贺达成);
+                            sheet.getWritableCell(5, j).setCellFormat(祝贺达成);
+                            sheet.getWritableCell(6, j).setCellFormat(祝贺达成);
+                            sheet.getWritableCell(13, j).setCellFormat(祝贺达成);
+                            break;
+                        }
+                        case "一步之遥": {
+                            sheet.getWritableCell(0, j).setCellFormat(一步之遥);
+                            sheet.getWritableCell(1, j).setCellFormat(一步之遥);
+                            sheet.getWritableCell(2, j).setCellFormat(一步之遥);
+                            sheet.getWritableCell(3, j).setCellFormat(一步之遥);
+                            sheet.getWritableCell(4, j).setCellFormat(一步之遥);
+                            sheet.getWritableCell(5, j).setCellFormat(一步之遥);
+                            sheet.getWritableCell(6, j).setCellFormat(一步之遥);
+                            sheet.getWritableCell(13, j).setCellFormat(一步之遥);
+                            break;
+                        }
+                        case "追赶进度": {
+                            sheet.getWritableCell(0, j).setCellFormat(追赶进度);
+                            sheet.getWritableCell(1, j).setCellFormat(追赶进度);
+                            sheet.getWritableCell(2, j).setCellFormat(追赶进度);
+                            sheet.getWritableCell(3, j).setCellFormat(追赶进度);
+                            sheet.getWritableCell(4, j).setCellFormat(追赶进度);
+                            sheet.getWritableCell(5, j).setCellFormat(追赶进度);
+                            sheet.getWritableCell(6, j).setCellFormat(追赶进度);
+                            sheet.getWritableCell(13, j).setCellFormat(追赶进度);
+                            break;
+                        }
+                        case "需改善": {
+                            sheet.getWritableCell(0, j).setCellFormat(需改善);
+                            sheet.getWritableCell(1, j).setCellFormat(需改善);
+                            sheet.getWritableCell(2, j).setCellFormat(需改善);
+                            sheet.getWritableCell(3, j).setCellFormat(需改善);
+                            sheet.getWritableCell(4, j).setCellFormat(需改善);
+                            sheet.getWritableCell(5, j).setCellFormat(需改善);
+                            sheet.getWritableCell(6, j).setCellFormat(需改善);
+                            sheet.getWritableCell(13, j).setCellFormat(需改善);
+                            break;
+                        }
+                        default:
+                            break;
+                    }
                 }
 
                 for (int i = 0; i <= 11; i++) {
                     sheet.setColumnView(i, 10);
                 }
                 sheet.setColumnView(12, 15);
+                sheet.setColumnView(13, 11);
                 sheet.setRowView(0, 800);
                 sheet.setRowView(1, 800);
             }
@@ -328,7 +377,7 @@ public class DoExcel {
                 allPeople.get(name).set当月已收件数(allPeople.get(name).get当月已收件数() + 1);
                 allPeople.get(name).set当月已收保费(allPeople.get(name).get当月已收保费() + 当月已收保费);
             } else {
-                allPeople.put(name, new People(map.get(业务员部门id)));
+                allPeople.put(name, new People(map.getOrDefault(业务员部门id, "未知课")));
                 allPeople.get(name).set当月已收件数(allPeople.get(name).get当月已收件数() + 1);
                 allPeople.get(name).set当月已收保费(allPeople.get(name).get当月已收保费() + 当月已收保费);
             }
@@ -359,7 +408,7 @@ public class DoExcel {
                 allPeople.get(name).set当月应收件数(allPeople.get(name).get当月应收件数() + 1);
                 allPeople.get(name).set当月应收保费(allPeople.get(name).get当月应收保费() + 当月应收保费);
             } else {
-                allPeople.put(name, new People(map.get(业务员部门id)));
+                allPeople.put(name, new People(map.getOrDefault(业务员部门id, "未知课")));
                 allPeople.get(name).set当月应收件数(allPeople.get(name).get当月应收件数() + 1);
                 allPeople.get(name).set当月应收保费(allPeople.get(name).get当月应收保费() + 当月应收保费);
             }
@@ -387,7 +436,7 @@ public class DoExcel {
             if (allPeople.containsKey(name)) {
                 allPeople.get(name).set宽末未收件数(allPeople.get(name).get宽末未收件数() + 1);
             } else {
-                allPeople.put(name, new People(map.get(业务员部门id)));
+                allPeople.put(name, new People(map.getOrDefault(业务员部门id, "未知课")));
                 allPeople.get(name).set宽末未收件数(allPeople.get(name).get宽末未收件数() + 1);
             }
         }
@@ -414,7 +463,7 @@ public class DoExcel {
             if (allPeople.containsKey(name)) {
                 allPeople.get(name).set宽一未收件数(allPeople.get(name).get宽一未收件数() + 1);
             } else {
-                allPeople.put(name, new People(map.get(业务员部门id)));
+                allPeople.put(name, new People(map.getOrDefault(业务员部门id, "未知课")));
                 allPeople.get(name).set宽一未收件数(allPeople.get(name).get宽一未收件数() + 1);
             }
         }
@@ -456,11 +505,12 @@ public class DoExcel {
             public int compare(Map.Entry<String, People> o1, Map.Entry<String, People> o2) {
                 People p1 = (People) o1.getValue();
                 People p2 = (People) o2.getValue();
-                ;
 
-                double 当月件数达成1 = p1.get当月件数达成();
-                double 当月件数达成2 = p2.get当月件数达成();
-                return Double.compare(当月件数达成2, 当月件数达成1);
+                if(Double.compare(p2.get当月件数达成(), p1.get当月件数达成()) != 0) {
+                    return Double.compare(p2.get当月件数达成(), p1.get当月件数达成());
+                } else {
+                    return Integer.compare(p2.get当月应收件数(), p1.get当月应收件数());
+                }
             }
         });
         /* 转换成新map输出 */
@@ -487,14 +537,14 @@ public class DoExcel {
         int order = 0;
         while (iterator.hasNext()) {
             Map.Entry mapEntry = (Map.Entry) iterator.next();
-            WritableSheet sheet = wwb.createSheet((String) mapEntry.getValue(), order++);
+            WritableSheet sheet = wwb.createSheet(mapEntry.getValue().toString(), order++);
             String[] 列标题 = {"业务员", getMounth("当") + "月应\n收件数", getMounth("当") + "月应\n收保费", getMounth("当") + "月已\n收件数",
                     getMounth("当") + "月已\n收保费", getMounth("当") + "月未\n收件数", getMounth("当") + "月未\n收保费",
                     getMounth("当") + "月件\n数达成", getMounth("当") + "月保\n费达成", getMounth("宽末") + "月未\n收件数",
                     getMounth("宽一") + "月未\n收件数", "总未收\n件数", getMounth("当") + "月距 80% \n差额件数"};
             try {
                 sheet.mergeCells(0, 0, 12, 0);
-                for(int i = 0; i < 列标题.length; i++){
+                for (int i = 0; i < 列标题.length; i++) {
                     // 设置列宽
                     CellView cellView = new CellView();
                     cellView.setSize(3000);
@@ -555,6 +605,15 @@ public class DoExcel {
                         sheet.addCell(new Number(11, count, 总未收件数));
                         sheet.addCell(new Label(12, count, 距离80的函数(当月应收件数, 当月已收件数)));
 
+                        if (当月件数达成 >= 0.8) {
+                            sheet.addCell(new Label(13, count, "祝贺达成"));
+                        } else if (当月件数达成 >= 0.6) {
+                            sheet.addCell(new Label(13, count, "一步之遥"));
+                        } else if (当月件数达成 >= 0.5) {
+                            sheet.addCell(new Label(13, count, "追赶进度"));
+                        } else {
+                            sheet.addCell(new Label(13, count, "需改善"));
+                        }
                     } catch (RowsExceededException e) {
                         e.printStackTrace();
                     } catch (WriteException e) {
@@ -565,7 +624,7 @@ public class DoExcel {
             }
             整体达标 = 计算百分比(总已收件数, 总应该收件数, 2);
             try {
-                sheet.addCell(new Label(0, 0, (String) mapEntry.getKey() + getMounth("当") + "月件数整体达成" + 整体达标 + "%"));
+                sheet.addCell(new Label(0, 0, (String) mapEntry.getValue() + getMounth("当") + "月件数整体达成" + 整体达标 + "%"));
             } catch (RowsExceededException e1) {
                 e1.printStackTrace();
             } catch (WriteException e) {
