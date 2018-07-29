@@ -2,18 +2,13 @@ package com.xjtushilei;
 
 import com.xjtushilei.dealExcel.DoExcel;
 
+import java.io.IOException;
+
 public class Start {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         DoExcel 彤彤妈妈的小机器人 = new DoExcel();
-
-        彤彤妈妈的小机器人.addMap("11100067713", "5课");
-        彤彤妈妈的小机器人.addMap("11100020425", "11课");
-        彤彤妈妈的小机器人.addMap("11100073346", "18课");
-        彤彤妈妈的小机器人.addMap("11100104129", "22课");
-        彤彤妈妈的小机器人.addMap("11100112847", "27课");
-        彤彤妈妈的小机器人.addMap("11100118816", "28课");
 
         彤彤妈妈的小机器人.init();
         彤彤妈妈的小机器人.do当月已收();

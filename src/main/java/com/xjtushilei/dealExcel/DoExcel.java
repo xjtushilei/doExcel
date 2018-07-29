@@ -13,6 +13,7 @@ import jxl.read.biff.BiffException;
 import jxl.write.*;
 import jxl.write.Number;
 import jxl.write.biff.RowsExceededException;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class DoExcel {
     private final String path当月应收 = "D:/报表/放报表/当月应收.xls";
     private final String path宽末未收 = "D:/报表/放报表/宽末未收.xls";
     private final String path宽一未收 = "D:/报表/放报表/宽一未收.xls";
+    private final String path课代号 = "D:/报表/程序/课代号.txt";
     // 后面生成带日期时间的文件名
     private String path生成文件 = "D:/报表/生成报表/生成文件";
     private LinkedHashMap<String, People> allPeople = null;
@@ -36,9 +38,6 @@ public class DoExcel {
      */
     private LinkedHashMap<String, String> map = new LinkedHashMap<>();
 
-    public void addMap(String s1, String s2) {
-        this.map.put(s1, s2);
-    }
 
     public static void main(String[] args) {
 
@@ -212,30 +211,30 @@ public class DoExcel {
             e1.printStackTrace();
         }
 
-        jxl.write.WritableCellFormat 追赶进度 = null;
-        try {
-            jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
-            wf.setColour(jxl.format.Colour.BLACK);
-            追赶进度 = new jxl.write.WritableCellFormat(wf);
-            追赶进度.setBackground(jxl.format.Colour.ORANGE);
-            追赶进度.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
-            追赶进度.setAlignment(Alignment.CENTRE);
-            追赶进度.setWrap(true);
-            追赶进度.setVerticalAlignment(VerticalAlignment.CENTRE);
-        } catch (WriteException e1) {
-            e1.printStackTrace();
-        }
-
         jxl.write.WritableCellFormat 需改善 = null;
         try {
             jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
             wf.setColour(jxl.format.Colour.BLACK);
             需改善 = new jxl.write.WritableCellFormat(wf);
-            需改善.setBackground(jxl.format.Colour.TAN);
+            需改善.setBackground(jxl.format.Colour.ORANGE);
             需改善.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
             需改善.setAlignment(Alignment.CENTRE);
             需改善.setWrap(true);
             需改善.setVerticalAlignment(VerticalAlignment.CENTRE);
+        } catch (WriteException e1) {
+            e1.printStackTrace();
+        }
+
+        jxl.write.WritableCellFormat 追赶进度 = null;
+        try {
+            jxl.write.WritableFont wf = new jxl.write.WritableFont(WritableFont.ARIAL, 12, WritableFont.BOLD);
+            wf.setColour(jxl.format.Colour.BLACK);
+            追赶进度 = new jxl.write.WritableCellFormat(wf);
+            追赶进度.setBackground(jxl.format.Colour.TAN);
+            追赶进度.setBorder(jxl.format.Border.ALL, BorderLineStyle.THIN);
+            追赶进度.setAlignment(Alignment.CENTRE);
+            追赶进度.setWrap(true);
+            追赶进度.setVerticalAlignment(VerticalAlignment.CENTRE);
         } catch (WriteException e1) {
             e1.printStackTrace();
         }
@@ -346,7 +345,11 @@ public class DoExcel {
         System.out.println("祝彤彤妈妈工作顺利！生活愉快！");
     }
 
-    public void init() {
+    public void init() throws IOException {
+        FileUtils.readLines(new File(path课代号), "utf-8").forEach(s -> {
+            String[] strings = s.split("。");
+            map.put(strings[0].trim(), strings[1].trim());
+        });
         allPeople = new LinkedHashMap<String, People>();
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy年MM月dd日HH时mm分ss秒");// 设置日期格式
