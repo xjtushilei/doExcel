@@ -29,7 +29,7 @@ public class DoExcel {
     private final String path当月应收 = "D:/报表/放报表/当月应收.xls";
     private final String path宽末未收 = "D:/报表/放报表/宽末未收.xls";
     private final String path宽一未收 = "D:/报表/放报表/宽一未收.xls";
-    private final String path课代号 = "D:/报表/程序/课代号.txt";
+    private final String path课代号 = "D:/报表/程序/课代号";
     // 后面生成带日期时间的文件名
     private String path生成文件 = "D:/报表/生成报表/生成文件";
     private LinkedHashMap<String, People> allPeople = null;
@@ -348,6 +348,7 @@ public class DoExcel {
     public void init() throws IOException {
         FileUtils.readLines(new File(path课代号), "utf-8").forEach(s -> {
             String[] strings = s.split("。");
+            System.out.println(Arrays.toString(strings));
             map.put(strings[0].trim(), strings[1].trim());
         });
         allPeople = new LinkedHashMap<String, People>();
